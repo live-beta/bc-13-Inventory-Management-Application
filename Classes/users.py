@@ -27,7 +27,9 @@ class employees(users):
         #code to check through tabase to find employee infomation and category
         return login_status
     def employee_console(self,employee_login):# calling the loin function
-        if login_status == True:
-            # load the user login console
+        cur.execute("SELECT * FROM user where user_name= self.user_name AND password=self.password")
+        if self.cur.fetchall():
+            login_status = True
+            print "login successful" #print uccessful if there is such a re
         else:
             print "login unsuccessful"
