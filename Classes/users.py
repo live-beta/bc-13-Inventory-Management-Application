@@ -1,10 +1,12 @@
-class users(object):
+class user(object):
     """docstring for users."""
-    def __init__(self,user_name,password,category):
+    def __init__(self,user_name,password,category,db,cur):
         super(users, self).__init__()
         self.user_name = user_name
         self.password = password
         self.category =category
+        self.db = MySQLdb.connect= (host="localhost",user="root",passwd="andela",db="inventory_management")
+        self.cur=db.cursor()
 class admin(users):
     """docstring for admin and operations"""
     def __init__(self, *arg):
@@ -29,33 +31,3 @@ class employees(users):
             # load the user login console
         else:
             print "login unsuccessful"
-
-class itemconsole(users):
-    """class for all console operations"""
-    def __init__(self,*args):
-        #inherit variables from users class and instanciate item variables (id,name,decription, total amount
-        #cost per item, date added, checkin status
-        self.user_name= user_name
-        self.category= category
-        self.item_id = item_id
-        self.name= name
-        self.description= decription
-        self.total_amount= total_amount
-        self.cost_per_item = cost_per_item
-        self.date_added= date_added
-        self.checkin_status= checkin_status
-
-    def add_item(*args): # Item variables (id,name,description,total amount,cost per item, date added,check status)
-        pass
-    def remove_item(*args):
-        pass
-    def list_item(*args):
-        pass
-    def check_item(*args):
-        pass
-    def view_item_by_id(*args):
-        pass
-    def search_item(self,*args):
-        pass
-    def compute_value(self,*args):
-        pass
