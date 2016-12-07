@@ -10,5 +10,7 @@ class Truth_Test(unittest.TestCase):
         self.assertEqual(self.retrieveuser(),'user name','category')
     def test_user_login(self):
         self.assertEqual(self.user_login(),False)
-    def check_database_connection(self):
+    def test_database_connection(self):
         self.assertEqual(self.db_connect(),True)
+    def test_add_employee(self):
+        self.assertEqual(self.)
