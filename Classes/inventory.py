@@ -35,52 +35,45 @@ class itemconsole:
         db.close()
 
     def remove_item(self,item_id):
-        rmv_stmt=("DELETE FROM inventory where item_id= '%s'" %(item_id))
+
+        #Delets and item from  a list using the item_id
+        db = MySQLdb.connect(host="localhost",user="root",passwd="andela",db="inventory_management")
+        cur=db.cursor()
+        rmv_stmt=("DELETE FROM inventory where itemid= '%s'" %(item_id))
+        cur.execute(rmv_stmt)
         db.commit()
         if rmv_stmt:
-            return True
-        else:
-            return False
-
-    def add_itemn(self): # Item variables (id,name,description,total amount,cost per item, date added,check status)
-
-        add_status = self.cur.execute("""INSERT INTO inventory (name,description,cost)
-                                         VALUES(:name,:description,:cost)""",
-                                         {'name':self.name,'description':self.description,'cost':self.cost}) # Id and date should add to database automatically
-        if add_status:
-            return True
-        else:
-            return False
-
-        db.close()
-
-    def remove_item(self):
-
-        remove_status= self.cur.execute("""DELETE FROM inventory WHERE itemid = :itemid""",
-                                           {'itemid':self.item_id})
-        if remove_status:
             return True
         else:
             return False
         db.close()
 
     def list_item(self):
-
-        #Query to return the entire inventory
-        self.cur.execute("SELECT * FROM inventory")
-        for row in self.cur.fetchall():
-            print row[0],row[1],row[2],row[3],row[4]
+        #Listing all the items in an inventory
+        db = MySQLdb.connect(host="localhost",user="root",passwd="andela",db="inventory_management")
+        cur=db.cursor()
+        list_stmt=("SELECT * FROM inventory")
+        results= cur.fetchall()
+        return results
         db.close()
 
-    def check_item(self):
-
+    def check_type_item(self):
         #quering using unique id
-        self.cur.execute("""SELECT * FROM inventory WHERE itemid = :item_id""",
-                            {'item_id': self.item_id})
-        for row in self.cur.fetchall():
-
-            print row[0],row[0],row[0],row[0],row[0]
-
+        db = MySQLdb.connect(host="localhost",user="root",passwd="andela",db="inventory_management")
+        cur=db.cursor()
+        #add_stmt = "SELECT * FROM user WHERE password=?",(password)
+        #add_stmt += add_stmt.format(password)
+        #data = ('password':password)
+        #if cur.execute("SELECT * FROM user WHERE password = ?",(password)):
+        #    return row[0],row[1],row[2],row[3]
+        #else:
+        #    return False
+        cur.execute("SELECT * FROM inventory WHERE productcode='%d'" %(productcode))
+        results=cur.fetchall()
+        if results:
+            return results
+        else:
+            print "Dear User, It seems like the number you have entered is not relevant please try again"
         db.close()
 
     def view_item_by_id(self,item_id):
@@ -95,29 +88,21 @@ class itemconsole:
         #    return row[0],row[1],row[2],row[3]
         #else:
         #    return False
-        cur.execute("SELECT * FROM inventory WHERE itemid='%s'" %(item_id))
+        cur.execute("SELECT * FROM inventory WHERE itemid='%d'" %(item_id))
         results=cur.fetchall()
         if results:
             return results
         else:
             print "Dear User, It seems like the number you have entered is not relevant please try again"
-
-
-    def search_item(self):
-        # implementing a binary search
-
-        self.cur.execute("""SELECT itemname,description FROM inventory WHERE itemcode= :itemcode""",
-                            {'itemcode': self.item_code})
-        for row in self.cur.fetchall():
-            print row[0],row[1],row[2],row[3],row[4]
-
         db.close()
 
     def compute_value(self):
+        db = MySQLdb.connect(host="localhost",user="root",passwd="andela",db="inventory_management")
+        cur=db.cursor()
 
         # Computing the sum of all the values in the inventory table
-        self.cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
-
+        cur.execute("SELECT * SUM(cost) as value_sum FROM inventory")
+        value_sum= cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
         print value_sum
         db.close()
 
@@ -127,4 +112,7 @@ obj=itemconsole()
 #cost= raw_input('Cost')
 #productcode=raw_input('productcode')
 #obj.add_item(itemname,description,cost,productcode)
-print obj.view_item_by_id(0)
+del_value= raw_input('id to be deleted')
+del_value=int(del_value)
+
+print obj.remove_item(del_value)
