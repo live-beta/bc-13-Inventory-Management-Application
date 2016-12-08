@@ -8,17 +8,18 @@ class Item_console:
     def __init__(self):
         pass
 
-    def add_item(self,itemname, description,cost, productcode,status):
+    def add_item(self, itemname, description, cost, productcode, status):
         # Adding an item's details to the database so that they can be manipulated
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         date_added = time.time()
-        cur.execute("INSERT INTO inventory (itemname,description,cost,productcode,dateinfo,status) VALUES('%s','%s','%s','%s','%s','%s')" % (itemname, description,cost, productcode,date_added,status))
+        cur.execute(
+            "INSERT INTO inventory (itemname,description,cost,productcode,dateinfo,status) VALUES('%s','%s','%s','%s','%s','%s')" % (
+            itemname, description, cost, productcode, date_added, status))
         db.commit()
         db.close()
 
     def remove_item(self, item_id):
-        # Removes Specific File by item_id
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         rmv_stmt = ("DELETE FROM inventory where itemid= '%s'" % (item_id))
@@ -35,7 +36,7 @@ class Item_console:
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         result = cur.execute("SELECT * FROM inventory")
-        with open(inventory,"a") as f:
+        with open(inventory, "a") as f:
             f.write(result)
         pass
         # Exporting all the details in the inventory to a CSV file
@@ -79,9 +80,10 @@ class Item_console:
                 str(row[4]),
                 str(row[5]),
                 str(row[6]),
-                )
+            )
 
-        print options
+        print
+        options
 
         db.close()
 
@@ -114,7 +116,7 @@ class Item_console:
 
     def compute_value(self):
         # Computing the sum of all the values in the inventory table
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db = "inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         value_sum = cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
         return value_sum
