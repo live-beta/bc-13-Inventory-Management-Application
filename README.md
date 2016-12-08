@@ -35,9 +35,7 @@ manages the records of a warehouse where Items can be Checked in and out and the
         * Virtual Environment Installation
             * Install the virtual environment by typing: pip install virtualenv on your terminal
             * Install the required modules
-
-    Inside the directory where you cloned the repository run pip install -r requirements.txt
-    Run the Inventory Management Application:
-
-    On the terminal type python Classes/main.py to start the application
+        * Inside the directory where you cloned the repository run pip install -r requirements.txt
+        * Run the Inventory Management Application:
+        * On the terminal type python Classes/main.py to start the application
   
