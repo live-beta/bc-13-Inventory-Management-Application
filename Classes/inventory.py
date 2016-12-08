@@ -3,13 +3,15 @@ import time
 
 
 class Item_console:
-    """class for all console operations"""
+    """class with methods that manipulate the inventory management data """
 
     def __init__(self):
         pass
 
     def add_item(self, itemname, description, cost, productcode, status):
-        # Adding an item's details to the database so that they can be manipulated
+        """
+        Adding an item's details to the database so that they can be manipulated
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         date_added = time.time()
@@ -20,30 +22,40 @@ class Item_console:
         db.close()
 
     def remove_item(self, item_id):
+        """
+        Method that removes an Item from the Inventory's database
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         rmv_stmt = ("DELETE FROM inventory where itemid= '%s'" % (item_id))
         cur.execute(rmv_stmt)
         db.commit()
+        
         if state:
             return "You have successfully deleted record %d", item_id
         else:
             return "Unable To Delete Record"
+        
         db.close()
 
     def list_export(self, item_id):
+        """
+        Method that exports all the contents of an Inventory database to a CSV data file
+        """
 
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         result = cur.execute("SELECT * FROM inventory")
+        
         with open(inventory, "a") as f:
             f.write(result)
         pass
-        # Exporting all the details in the inventory to a CSV file
+       
 
     def item_check_out(self, item_id):
-        # Check an Item out of the database
-
+        """
+        Method that checks out an item from the inventory 
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         status = "Checked-Out"
@@ -52,7 +64,9 @@ class Item_console:
         db.close
 
     def item_check_in(self, item_id):
-        # Returning an Item to warehouse
+        """
+        Returning an Item to warehouse inventory
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         status = "Available"
@@ -60,15 +74,15 @@ class Item_console:
         db.commit()
         db.close
         pass
-        # Checks in items that were initially checked out. By Item id
-
+    
     def list_item(self):
-        # Listing all the items in an inventory
+        """
+         Listing all the items in the warehouse inventory
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         list_stmt = ("SELECT * FROM inventory")
         cur.execute(list_stmt)
-
         results = cur.fetchall()
         options = list()
         for row in results:
@@ -88,7 +102,9 @@ class Item_console:
         db.close()
 
     def view_type_item(self, item_code):
-        # quering using unique id
+        """ 
+        Querying Database using unique item_id
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         cur.execute("SELECT * FROM inventory WHERE productcode='%d'" % (productcode))
@@ -101,8 +117,9 @@ class Item_console:
         db.close()
 
     def item_search(self, item_id):
-
-        # quering to view all items of specific uniqe code e.g data of all android phones
+        """
+        quering to view all items of specific uniqe code e.g data of all android phones
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         cur.execute("SELECT * FROM inventory WHERE itemid='%d'" % (item_id))
@@ -115,7 +132,9 @@ class Item_console:
         db.close()
 
     def compute_value(self):
-        # Computing the sum of all the values in the inventory table
+        """
+        Computing the sum of all the values in the inventory table
+        """
         db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
         cur = db.cursor()
         value_sum = cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
