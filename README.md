@@ -23,19 +23,21 @@ manages the records of a warehouse where Items can be Checked in and out and the
      *    To confirm that you have successfully installed Python:
      *    Open the Command Propmpt on Windows or Terminal on Mac/Linux
      *    Type python
-     *    If the Python installation was successfull you the Python version will be printed on your screen and the python REPL will start
+     *    If the Python installation was successfull you the Python version will be printed on your screen and the python REPL will               start
  
  * Clone the repository to your personal computer to any folder
-        * On GitHub, go to the main page of the repository [Inventory Management Appliation](https://github.com/live-beta/bc-13-Inventory-Management-Application)
-        * On your right, click the green button 'Clone or download'
-        * Copy the URL
-        * Enter the terminal on Mac/Linux or Git Bash on Windows
-        * Type git clone and paste the URL you copied from GitHub
-        * Press Enter to complete the cloning process
-        * Virtual Environment Installation
-            * Install the virtual environment by typing: pip install virtualenv on your terminal
-            * Install the required modules
-        * Inside the directory where you cloned the repository run pip install -r requirements.txt
-        * Run the Inventory Management Application:
-        * On the terminal type python Classes/main.py to start the application
+     *    On GitHub, go to the main page of the repository [Inventory Management Appliation](https://github.com/live-beta/bc-13-                   Inventory-Management-Application)
+     *    On your right, click the green button 'Clone or download'
+     *    Copy the URL
+     *    Enter the terminal on Mac/Linux or Git Bash on Windows
+     *    Type git clone and paste the URL you copied from GitHub
+     *    Press Enter to complete the cloning process
+ 
+ * Virtual Environment Installation
+     * Install the virtual environment by typing: pip install virtualenv on your terminal
+     * Install the required modules
+     * Inside the directory where you cloned the repository run pip install -r requirements.txt
+    
+ * Run the Inventory Management Application:
+     * On the terminal type python Classes/main.py to start the application
   
