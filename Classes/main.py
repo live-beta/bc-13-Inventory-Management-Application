@@ -26,6 +26,7 @@ def docopt_cmd(func):
     This decorator is used to simplify the try/except block and pass the result
     of the docopt parsing to the called action.
     """
+
     def fn(self, arg):
         try:
             opt = docopt(fn.__doc__, arg)
@@ -52,7 +53,7 @@ def docopt_cmd(func):
     return fn
 
 
-class MyInteractive (cmd.Cmd):
+class MyInteractive(cmd.Cmd):
     intro = 'Welcome to My Inventory'
     prompt = 'Inventory_Manager>> '
     file = None
@@ -96,7 +97,8 @@ class MyInteractive (cmd.Cmd):
         item_id = args["<itemid>"]
         add_obj = Item_console()
         add_obj.item_check_out(item_id)
-        print "Item Checked Out"
+        print
+        "Item Checked Out"
 
     @docopt_cmd
     def do_item_checkin(self, args):
@@ -106,7 +108,8 @@ class MyInteractive (cmd.Cmd):
         item_id = args["<itemid>"]
         add_obj = Item_console()
         add_obj.item_check_in(item_id)
-        print "Item Checked In"
+        print
+        "Item Checked In"
 
     @docopt_cmd
     def do_item_list(self, args):
