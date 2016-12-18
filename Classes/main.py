@@ -2,7 +2,7 @@
 """
 Usage:
     inventory output <val>
-    inventory item_add <itemname> <description> <cost> <productcode> <status>
+    inventory item_add <itemname> <cost> <productcode> <status> <description...>
     inventory item_remove <itemid>
     inventory item_list
     inventory compute_assetvalue
@@ -61,7 +61,7 @@ class MyInteractive(cmd.Cmd):
     @docopt_cmd
     def do_item_add(self, args):
         """
-        Usage: item_add <itemname> <description> <cost> <productcode> <status>
+        Usage: item_add <itemname> <cost> <productcode> <status> <description> 
         """
         item_name = args["<itemname>"]
         description = args["<description>"]
@@ -69,6 +69,7 @@ class MyInteractive(cmd.Cmd):
         productcode = args["<productcode>"]
         status = args["<status>"]
         add_obj = Item_console()
+        #print "this is to show that this function has a heart"
         add_obj.add_item(item_name, description, cost, productcode, status)
 
     @docopt_cmd
