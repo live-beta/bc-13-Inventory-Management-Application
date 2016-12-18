@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 """
 Usage:
-    inventory output <val>
-    inventory item_add <itemname> <cost> <productcode> <status> <description...>
+    inventory item_add <itemname> <cost> <productcode> <status> <description>...
     inventory item_remove <itemid>
     inventory item_list
     inventory compute_assetvalue
@@ -61,16 +60,20 @@ class MyInteractive(cmd.Cmd):
     @docopt_cmd
     def do_item_add(self, args):
         """
-        Usage: item_add <itemname> <cost> <productcode> <status> <description> 
+        Usage: item_add <itemname> <cost> <productcode> <status> <description>...
         """
         item_name = args["<itemname>"]
         description = args["<description>"]
         cost = args["<cost>"]
         productcode = args["<productcode>"]
         status = args["<status>"]
+        description_info = ''
+        for word in description:
+            description_info += word + ''
+
         add_obj = Item_console()
         #print "this is to show that this function has a heart"
-        add_obj.add_item(item_name, description, cost, productcode, status)
+        add_obj.add_item(item_name, description_info.strip(), cost, productcode, status)
 
     @docopt_cmd
     def do_item_remove(self, args):
