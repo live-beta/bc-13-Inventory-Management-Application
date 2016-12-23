@@ -132,7 +132,8 @@ class Item_console:
         """
         db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
-        value_sum = cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
+        cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
+        value_sum = cur.fetchall()
         return value_sum
         db.close()
 
