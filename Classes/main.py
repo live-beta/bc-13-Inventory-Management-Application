@@ -6,6 +6,7 @@ Usage:
     inventory item_list
     inventory product_type <product_code>
     inventory compute_assetvalue
+    inventory item_search <itemid>
     inventory (-i | --interactive)
     inventory (-h | --help | --version)
 
@@ -123,6 +124,15 @@ class MyInteractive(cmd.Cmd):
         """
         add_obj = Item_console()
         add_obj.list_item()
+    
+    @docopt_cmd
+    def do_item_search(self,args):
+        """
+        Usage: item_search <itemid>
+        """
+        item_id = args["<itemid>"]
+        add_obj= Item_console()
+        print(add_obj.item_search(item_id))
 
     @docopt_cmd
     def do_product_type(self,args):
