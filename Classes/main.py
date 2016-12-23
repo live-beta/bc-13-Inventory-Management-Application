@@ -3,10 +3,11 @@
 Usage:
     inventory item_add <itemname> <cost> <productcode> <status> <description>...
     inventory item_remove <itemid>
-    inventory item_list
     inventory product_type <product_code>
-    inventory compute_assetvalue
     inventory item_search <itemid>
+    inventory item_list
+    inventory compute_assetvalue
+    inventory export
     inventory (-i | --interactive)
     inventory (-h | --help | --version)
 
@@ -85,15 +86,7 @@ class MyInteractive(cmd.Cmd):
         item_id = args["<itemid>"]
         add_obj = Item_console()
         #add_obj.remove_item(item_id)
-        print(add_obj.remove_item(item_id))
-
-    @docopt_cmd
-    def do_export(self, args):
-        """
-        Usage: item -- export
-        """
-        add_obj = Item_console()
-        add_obj.list_export(itemid)
+        print(add_obj.remove_item(item_id))        
 
     @docopt_cmd
     def do_item_checkout(self, args):
@@ -150,6 +143,14 @@ class MyInteractive(cmd.Cmd):
         """
         add_obj = Item_console()
         print(add_obj.compute_value())
+
+    @docopt_cmd
+    def do_export(self,args):
+        """
+        Usage: export
+        """
+        add_obj = Item_console()
+        add_obj.export_data()
 
     def do_quit(self, arg):
         """Quits out of Interactive Mode."""
