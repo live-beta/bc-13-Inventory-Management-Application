@@ -12,7 +12,7 @@ class Item_console:
         """
         Adding an item's details to the database so that they can be manipulated
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         date_added = time.time()
         cur.execute(
@@ -25,16 +25,13 @@ class Item_console:
         """
         Method that removes an Item from the Inventory's database
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         rmv_stmt = ("DELETE FROM inventory where itemid= '%s'" % (item_id))
         cur.execute(rmv_stmt)
         db.commit()
         
-        if state:
-            return "You have successfully deleted record %d", item_id
-        else:
-            return "Unable To Delete Record"
+        return "You have successfully deleted record %s", item_id
         
         db.close()
 
@@ -43,7 +40,7 @@ class Item_console:
         Method that exports all the contents of an Inventory database to a CSV data file
         """
 
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         result = cur.execute("SELECT * FROM inventory")
         
@@ -51,12 +48,11 @@ class Item_console:
             f.write(result)
         pass
        
-
     def item_check_out(self, item_id):
         """
         Method that checks out an item from the inventory 
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         status = "Checked-Out"
         cur.execute("UPDATE inventory SET status='%s' where itemid= '%s'" % (status, item_id))
@@ -67,7 +63,7 @@ class Item_console:
         """
         Returning an Item to warehouse inventory
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         status = "Available"
         cur.execute("UPDATE inventory SET status='%s' where itemid= '%s'" % (status, item_id))
@@ -79,7 +75,7 @@ class Item_console:
         """
          Listing all the items in the warehouse inventory
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         list_stmt = ("SELECT * FROM inventory")
         cur.execute(list_stmt)
@@ -101,13 +97,25 @@ class Item_console:
 
         db.close()
 
-    def view_type_item(self, item_code):
+    def view_type_item(self, product_code):
         """ 
         Querying Database using unique item_id
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
-        cur.execute("SELECT * FROM inventory WHERE productcode='%d'" % (productcode))
+        cur.execute("SELECT * FROM inventory WHERE productcode='%s'" % (product_code))
+        results = cur.fetchall()
+        
+        return results
+        db.close()
+
+    def item_search(self, item_id):
+        """
+        quering to view all items of specific uniqe code e.g data of all android phones
+        """
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
+        cur = db.cursor()
+        cur.execute("SELECT * FROM inventory WHERE itemid='%s'" % (item_id))
         results = cur.fetchall()
         if results:
             return results
@@ -116,26 +124,11 @@ class Item_console:
             "It seems like the number you have entered is not relevant please try again"
         db.close()
 
-    def item_search(self, item_id):
-        """
-        quering to view all items of specific uniqe code e.g data of all android phones
-        """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
-        cur = db.cursor()
-        cur.execute("SELECT * FROM inventory WHERE itemid='%d'" % (item_id))
-        results = cur.fetchall()
-        if results:
-            return results
-        else:
-            print
-            "Dear User, It seems like the number you have entered is not relevant please try again"
-        db.close()
-
     def compute_value(self):
         """
         Computing the sum of all the values in the inventory table
         """
-        db = MySQLdb.connect(host="localhost", user="root", passwd="andela", db="inventory_management")
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
         value_sum = cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
         return value_sum
