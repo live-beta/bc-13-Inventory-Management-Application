@@ -4,6 +4,7 @@ Usage:
     inventory item_add <itemname> <cost> <productcode> <status> <description>...
     inventory item_remove <itemid>
     inventory item_list
+    inventory product_type <product_code>
     inventory compute_assetvalue
     inventory (-i | --interactive)
     inventory (-h | --help | --version)
@@ -82,7 +83,7 @@ class MyInteractive(cmd.Cmd):
         """
         item_id = args["<itemid>"]
         add_obj = Item_console()
-        add_obj.remove_item(itemid)
+        #add_obj.remove_item(item_id)
         print(add_obj.remove_item(item_id))
 
     @docopt_cmd
@@ -122,6 +123,15 @@ class MyInteractive(cmd.Cmd):
         """
         add_obj = Item_console()
         add_obj.list_item()
+
+    @docopt_cmd
+    def do_product_type(self,args):
+        """
+        Usage: product_type <product_code>
+        """
+        product_code=args["<product_code>"]
+        add_obj=Item_console()
+        print(add_obj.view_type_item(product_code))
 
     @docopt_cmd
     def do_compute_assetvalue(self, args):
