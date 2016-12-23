@@ -1,5 +1,7 @@
 import MySQLdb
 import time
+import sys
+import csv
 
 
 class Item_console:
@@ -111,7 +113,7 @@ class Item_console:
 
     def item_search(self, item_id):
         """
-        quering to view all items of specific uniqe code e.g data of all android phones
+        Quering to view all items of specific uniqe code e.g data of all android phones
         """
         db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
@@ -132,4 +134,15 @@ class Item_console:
         cur = db.cursor()
         value_sum = cur.execute("SELECT SUM(cost) as value_sum FROM inventory")
         return value_sum
+        db.close()
+
+    def export_data(self):
+        db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
+        cur = db.cursor()
+        cur.execute("SELECT * FROM inventory")
+        results=cur.fetchall()
+
+        c= csv.writer(open("data.csv","wb"))
+        for row in results:
+            c.writerow(row)
         db.close()
