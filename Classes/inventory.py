@@ -1,5 +1,5 @@
 import MySQLdb
-import time
+import datetime
 import sys
 import csv
 
@@ -16,7 +16,8 @@ class Item_console:
         """
         db = MySQLdb.connect(host="localhost", user="root", passwd="julaikumi", db="inventory_management")
         cur = db.cursor()
-        date_added = time.time()
+        now = datetime.datetime.now()
+        date_added = now.strftime("%Y-%m-%d")
         cur.execute(
             "INSERT INTO inventory (itemname,description,cost,productcode,dateinfo,status) VALUES('%s','%s','%s','%s','%s','%s')" % (
             itemname, description, cost, productcode, date_added, status))
